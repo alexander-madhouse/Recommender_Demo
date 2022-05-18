@@ -2,7 +2,9 @@ import 'dart:io' as Io;
 import 'dart:io';
 
 import 'package:credoapp_example/helper/apinames.dart';
+import 'package:credoapp_example/main.dart';
 import 'package:credoapp_example/utils/const.dart';
+import 'package:credoapp_example/utils/route.dart';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:encrypt/encrypt_io.dart';
@@ -68,6 +70,61 @@ class BaseHelper {
       } else {
         EasyLoading.dismiss();
         toast("Incorrect email or password!", context);
+      }
+    } on SocketException {
+      toast("No Internet", context);
+      // constValues().toast("${getTranslated(context, "no_internet")}", context);
+      EasyLoading.dismiss();
+      print('No Internet connection 😑');
+    } on HttpException catch (error) {
+      print(error);
+      toast("$error", context);
+      EasyLoading.dismiss();
+      print("Couldn't find the post 😱");
+    } on FormatException catch (error) {
+      print(error);
+
+      toast("$error", context);
+      EasyLoading.dismiss();
+      print("Bad response format 👎");
+    } catch (value) {
+      toast("${value}", context);
+      EasyLoading.dismiss();
+      print("${value}");
+    }
+  }
+
+  Future<dynamic> postData({userId, token, context}) async {
+    var header = {
+      "Accept": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded"
+    };
+    try {
+      var body = {"token": "$token", "userid": "$userId"};
+      // json.encode({
+      //   "grant_type": "client_credentials",
+      //   // "password": "$password",
+      //   // "grant_type": "password"
+      // });
+      print("body: $body");
+      print("header $header");
+      var url = "${API.dataPost}";
+      print("urlll: $url");
+      EasyLoading.show();
+      final response =
+          await http.post(Uri.parse(url), headers: header, body: body);
+
+      // var Json = json.decode(response.body);
+      // print("response data: ${Json}");
+      print("response status code: ${response.statusCode}");
+      if (response.statusCode == 200) {
+        EasyLoading.dismiss();
+       
+        AppRoutes.makeFirst(context, MyHomePage());
+         toast("Data Saved Successfully!", context);
+      } else {
+        EasyLoading.dismiss();
+        toast("Server error!", context);
       }
     } on SocketException {
       toast("No Internet", context);
