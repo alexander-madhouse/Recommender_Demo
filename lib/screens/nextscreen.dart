@@ -158,15 +158,15 @@ class _NextScreen extends State<NextScreen> {
                                             .loginUser(
                                                 email: user.text,
                                                 password: password.text,
+                                                userid: this.widget.userId,
                                                 context: context)
                                             .then((value) {
-                                          print(
-                                              "authentication response: $value");
-                                              BaseHelper().postData(
-                                                token: value['access_token'],
-                                                userId: widget.userId,
-                                                context: context
-                                              );
+                                          //print("authentication response: $value");
+                                          BaseHelper().postData(
+                                              user_token: value['access_token'],
+                                              bearer_token: "",
+                                              userId: widget.userId,
+                                              context: context);
                                         });
                                         // setState(() {
                                         //   validate = true;

@@ -40,7 +40,7 @@ void main() async {
   ]);
 }
 
-const platform = const MethodChannel('app.channel.shared.data');
+// const platform = const MethodChannel('app.channel.shared.data');
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);

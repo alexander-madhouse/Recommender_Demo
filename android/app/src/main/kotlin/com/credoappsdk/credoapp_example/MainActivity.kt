@@ -39,15 +39,10 @@ class MainActivity: FlutterActivity() {
 
                 call.method.equals("changeColor") -> {
 
-                    ActivityCompat.requestPermissions(this@MainActivity, arrPerms,200)
-
-
-                    println("the email is ${call.argument<String>("email").toString()}")
-                    println("the offerCode is ${call.argument<String>("offerCode").toString()}")
-                    println("the mobileNo is ${call.argument<String>("mobileNo").toString()}")
+                   
                     val em=call.argument<String>("email").toString()
                     val mobile=call.argument<String>("mobileNo").toString()
-                    val oferCode=call.argument<String>("offerCode").toString()
+                    val offerCode=call.argument<String>("offerCode").toString()
                     val authKey ="2bc12245-fe7f-4f94-a715-ca2ab6ef6f03"
                     val apiURL ="https://app.securecreditsystems.com/"
                     println("the auth key is $authKey")
@@ -55,8 +50,6 @@ class MainActivity: FlutterActivity() {
                   val scs = SCSSDK(
                           authKey,
                   )
-
-                    println("our scs is: ${scs.UserId}, ${scs.instanceId}, ")
                     if (Build.VERSION.SDK_INT > 9) {
                         val policy = StrictMode.ThreadPolicy.Builder()
                                 .detectAll()
@@ -68,10 +61,9 @@ class MainActivity: FlutterActivity() {
                     progress.show()
                     try {
 
-
                         val score  = scs.score(
                                 email=em,
-                                offerCode = oferCode,
+                                offerCode = offerCode,
                                 minCollect=true,
                                 context=context,
                                 mobileNumber = mobile
