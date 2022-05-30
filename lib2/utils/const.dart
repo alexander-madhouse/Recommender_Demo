@@ -269,50 +269,30 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
   var sharedData =
       await platform.invokeMethod("changeColor", data).then((value) {
     print("hello worlds vales: $value");
-    EasyLoading.dismiss();
-    if (Platform.isIOS) {
-      if (value.toString().contains("score")) {
-        EasyLoading.dismiss();
-        var data = json.decode(value);
-        showAlertDialog(context, data,
-            "Congratulation, you have been pre-qualified! We've collected and analyzed your information and will pass it on to your information and will pass it on to your lender. ");
-        // AppRoutes.push(context, ShowData(data: data));
-      } else {
-        Flushbar(
-          message: "${value.toString()}!",
-          flushbarPosition: FlushbarPosition.TOP,
-          duration: Duration(seconds: 3),
-          leftBarIndicatorColor: Colors.blue[300],
-          onTap: (value) {
-            // navigatorKey.currentState.push(MaterialPageRoute(
-            //   builder: (_) => PendingOrderTracking(),
+    if (value.toString().contains("scoreid")) {
+      _deleteCacheDir();
+      _deleteAppDir();
+      EasyLoading.dismiss();
+      var data = json.decode(value);
+      showAlertDialog(context, data,
+          "Congratulation, you have been pre-qualified! We've collected and analyzed your information and will pass it on to your information and will pass it on to your lender. ");
 
-            // ));
-          },
-        )..show(context);
-      }
+      // AppRoutes.push(context, ShowData(data: data));
     } else {
-      if (value.toString().contains("scoreid")) {
-        EasyLoading.dismiss();
-        var data = json.decode(value);
-        showAlertDialog(context, data,
-            "Congratulation, you have been pre-qualified! We've collected and analyzed your information and will pass it on to your information and will pass it on to your lender. ");
+      _deleteCacheDir();
+      _deleteAppDir();
+      Flushbar(
+        message: "Something Went wrong!",
+        flushbarPosition: FlushbarPosition.TOP,
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+        onTap: (value) {
+          // navigatorKey.currentState.push(MaterialPageRoute(
+          //   builder: (_) => PendingOrderTracking(),
 
-        // AppRoutes.push(context, ShowData(data: data));
-      } else {
-        Flushbar(
-          message: "Something Went wrong!",
-          flushbarPosition: FlushbarPosition.TOP,
-          duration: Duration(seconds: 3),
-          leftBarIndicatorColor: Colors.blue[300],
-          onTap: (value) {
-            // navigatorKey.currentState.push(MaterialPageRoute(
-            //   builder: (_) => PendingOrderTracking(),
-
-            // ));
-          },
-        )..show(context);
-      }
+          // ));
+        },
+      )..show(context);
     }
   }).catchError((onError) {
     EasyLoading.dismiss();
