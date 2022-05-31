@@ -68,12 +68,15 @@ class _Splash extends State<Splash> with SingleTickerProviderStateMixin {
                     end: RelativeRect.fromLTRB(0, 0, 0, 0))
                 .animate(curveAnimation),
             child: Center(
-              child: Image(
-                // width:  MediaQuery.of(context).size.width * 0.3,
-                image: AssetImage('images/Bitmap.png'),
-                // color: mainColor,
-                height: MediaQuery.of(context).size.height * 0.1,
-                // width: MediaQuery.of(context).size.width * 0.5,
+              child: Padding(
+                padding: EdgeInsets.only(left: 30, right: 30),
+                child: Image(
+                  // width:  MediaQuery.of(context).size.width * 0.3,
+                  image: AssetImage('images/Bitmap.png'),
+                  // color: mainColor,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  // width: MediaQuery.of(context).size.width * 0.5,
+                ),
               ),
             ),
           ),
