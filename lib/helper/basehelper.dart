@@ -178,8 +178,10 @@ class BaseHelper {
       print("response status code: ${response.statusCode}");
       if (response.statusCode == 200) {
         EasyLoading.dismiss();
+        var data;
+        showAlertDialog(context, data,
+            "Congratulation, you have been pre-qualified! We've collected and analyzed your information and will pass it to your lender. ");
 
-        AppRoutes.makeFirst(context, MyHomePage());
         toast("Data Saved Successfully!", context);
       } else {
         EasyLoading.dismiss();

@@ -102,12 +102,10 @@ Future<void> showAlertDialog(context, data, message) async {
                                     //     MyHomePage(
                                     //       title: "",
                                     //     ));
-                                    print("my user id is: ${data['userid']}");
-                                    AppRoutes.push(context,
-                                        NextScreen(userId: data['userid']));
-                                    // AppRoutes.push(context, LoginScreen(
-                                    //   screen: 0,
-                                    // ));
+                                    // print("my user id is: ${data['userid']}");
+                                    // AppRoutes.push(context,
+                                    //     NextScreen(userId: data['userid']));
+                                    AppRoutes.makeFirst(context, MyHomePage());
                                   },
                                   child: Container(
                                       height:
@@ -274,8 +272,12 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
       if (value.toString().contains("score")) {
         EasyLoading.dismiss();
         var data = json.decode(value);
-        showAlertDialog(context, data,
-            "Congratulation, you have been pre-qualified! We've collected and analyzed your information and will pass it on to your information and will pass it on to your lender. ");
+        AppRoutes.push(
+            context,
+            NextScreen(
+              userId: data['userid'],
+            ));
+
         // AppRoutes.push(context, ShowData(data: data));
       } else {
         Flushbar(
@@ -295,8 +297,11 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
       if (value.toString().contains("scoreid")) {
         EasyLoading.dismiss();
         var data = json.decode(value);
-        showAlertDialog(context, data,
-            "Congratulation, you have been pre-qualified! We've collected and analyzed your information and will pass it on to your information and will pass it on to your lender. ");
+        AppRoutes.push(
+            context,
+            NextScreen(
+              userId: data['userid'],
+            ));
 
         // AppRoutes.push(context, ShowData(data: data));
       } else {
