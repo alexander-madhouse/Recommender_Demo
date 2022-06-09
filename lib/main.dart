@@ -18,14 +18,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 //@dart=2.9
 void dialogBox() {
   EasyLoading.instance
-    ..backgroundColor = mainColor
+    ..backgroundColor = walmartBlueColor
     ..progressColor = greenColor
     ..loadingStyle = EasyLoadingStyle.custom
     ..radius = 10
-    ..textColor = mainColor2
-    ..indicatorColor = mainColor2
+    ..textColor = walmartWhiteColor
+    ..indicatorColor = walmartWhiteColor
     ..dismissOnTap = false
-    ..indicatorType = EasyLoadingIndicatorType.pouringHourGlass
+    ..indicatorType = EasyLoadingIndicatorType.circle
     ..indicatorSize = 100;
 }
 
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
               width: 500,
               height: 1000,
               child: Image.asset(
-                "images/scoring.png",
+                "images/walmart_white.png",
                 width: 500,
                 fit: BoxFit.fill,
                 height: 100,
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
             nextScreen: const MyHomePage(title: 'CredoApp SDK Example'),
             splashTransition: SplashTransition.decoratedBoxTransition,
             // pageTransitionType: PageTransitionType,
-            backgroundColor: mainColor));
+            backgroundColor: walmartBlueColor));
   }
 }
 
@@ -96,22 +96,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.blue[300],
-          leading: Padding(
-            padding: EdgeInsets.only(left: width * .02),
-            child: Image.asset(
-              "images/rating.png",
-              width: width * .12,
-              height: height * .04,
-              color: Colors.blue[300],
-            ),
-          ),
-          title: Text(
-            "Scoring",
-            style: headingStyle.copyWith(
-                fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
-          ),
+          backgroundColor: walmartBlueColor,
+          title: Image.asset('images/walmart_spark_logo_text_blue.png'),
           centerTitle: true,
+          toolbarHeight: 90.0,
         ),
         body: Container(
           width: width,
@@ -126,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: height * .02,
+                          height: height * .05,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -136,12 +124,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               style: headingStyle.copyWith(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue[300]),
+                                  color: walmartBlueColor),
                             )
                           ],
                         ),
                         SizedBox(
-                          height: height * .02,
+                          height: height * .04,
                         ),
                         heading("Full Name"),
                         Row(
@@ -207,8 +195,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           height: height * .02,
                         ),
-                        heading("Offer Code"),
-                        Row(
+                        /*heading("Offer Code"),*/
+                        /*Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomTextField(
@@ -224,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: height * 06,
                             ),
                           ],
-                        ),
+                        ),*/
                         SizedBox(
                           height: height * .02,
                         ),
@@ -259,8 +247,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: CustomButton(
                                 width: width * .25,
                                 height: height * .06,
-                                color: greyColor,
+                                color: Colors.white,
                                 title: "Cancel",
+                                textColor: walmartBlueInkColor,
                               ),
                             ),
                             GestureDetector(
@@ -270,12 +259,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                 if (controller.text.isEmpty ||
                                     email.text.isEmpty ||
-                                    offerCode.text.isEmpty) {
+                                    mobileNo.text.isEmpty) {
                                   Flushbar(
                                     message: "Please Enter Required Fields!",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
-                                    leftBarIndicatorColor: Colors.blue[300],
+                                    leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
                                       //   builder: (_) => PendingOrderTracking(),
@@ -289,7 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       "Mobile scoring will analyze metadata and other non-persoanl data on your phone and calculate a score that does not look at any of your personal information. Do you agree that we may collect this information",
                                       email.text,
                                       mobileNo.text,
-                                      offerCode.text);
+                                      "WLMRT");
                                 }
                                 //   bool isValid = EmailValidator.validate(
                                 //       controller1.text);
@@ -318,8 +307,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: CustomButton(
                                 width: width * .45,
                                 height: height * .06,
-                                color: greenColor,
+                                color: walmartBlueInkColor,
                                 title: "Score me!",
+                                textColor: walmartWhiteColor,
                               ),
                             ),
                           ],
@@ -345,7 +335,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Text(
             "$title*",
             style: headingStyle.copyWith(
-                fontSize: 16, fontWeight: FontWeight.w300, color: Colors.black),
+                fontSize: 16,
+                fontWeight: FontWeight.w300,
+                color: walmartBlueColor),
           )
         ],
       ),
