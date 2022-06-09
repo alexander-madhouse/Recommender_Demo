@@ -83,9 +83,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String dataShared = "No Data";
   bool isLoading = false;
-  TextEditingController controller = TextEditingController();
+  TextEditingController fullName = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController offerCode = TextEditingController();
+  TextEditingController govId = TextEditingController();
   TextEditingController mobileNo = TextEditingController();
   var width, height;
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Get Prequalified Today",
+                              "¡Pre califica hoy mismo!",
                               style: headingStyle.copyWith(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -131,18 +131,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           height: height * .04,
                         ),
-                        heading("Full Name"),
+                        heading("Nombre y apellidos"),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomTextField(
                               // controller: pass,
-                              pass: false, controller: controller,
+                              pass: false, controller: fullName,
                               width: width * .85,
                               validator: (String value) => value.isEmpty
                                   ? "Please enter Full Name"
                                   : null,
-                              title: "Enter Full Name",
+                              title: "Ingresa nombre y apellidos",
                               number: false,
                               keyboardTypenumeric: false,
                               height: height * 06,
@@ -152,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           height: height * .02,
                         ),
-                        heading("Email"),
+                        heading("Correo electrónico"),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: width * .85,
                               validator: (String value) =>
                                   value.isEmpty ? "Please enter Email" : null,
-                              title: "Enter Email",
+                              title: "Ingresa correo electrónico",
                               number: false,
                               keyboardTypenumeric: false,
                               height: height * 06,
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           height: height * .02,
                         ),
-                        heading("Phone"),
+                        heading("Número celular"),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -182,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               controller: mobileNo,
 
                               width: width * .85,
-                              title: "Enter Phone",
+                              title: "Ingresa número celular",
                               validator: () {
                                 return null;
                               },
@@ -195,24 +195,23 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           height: height * .02,
                         ),
-                        /*heading("Offer Code"),*/
-                        /*Row(
+                        heading("Número de tu identificación (INE / IFE)"),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomTextField(
-                              controller: offerCode,
+                              controller: govId,
                               pass: false,
                               width: width * .85,
-                              validator: (String value) => value.isEmpty
-                                  ? "Please enter Offer Code"
-                                  : null,
-                              title: "Enter Offer Code",
+                              validator: (String value) =>
+                                  value.isEmpty ? "Please enter Gov ID" : null,
+                              title: "Ingresa número de identificación",
                               number: false,
                               keyboardTypenumeric: false,
                               height: height * 06,
                             ),
                           ],
-                        ),*/
+                        ),
                         SizedBox(
                           height: height * .02,
                         ),
@@ -241,27 +240,52 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             GestureDetector(
-                              onTap: () {
-                                // EasyLoading.show();
-                              },
-                              child: CustomButton(
-                                width: width * .25,
-                                height: height * .06,
-                                color: Colors.white,
-                                title: "Cancel",
-                                textColor: walmartBlueInkColor,
-                              ),
-                            ),
-                            GestureDetector(
                               onTap: () async {
                                 // await platform
                                 //     .invokeMethod("getSharedText");
-
-                                if (controller.text.isEmpty ||
-                                    email.text.isEmpty ||
-                                    mobileNo.text.isEmpty) {
+                                if (fullName.text.isEmpty) {
                                   Flushbar(
-                                    message: "Please Enter Required Fields!",
+                                    message: "Se requiere nombre y appelidos.",
+                                    flushbarPosition: FlushbarPosition.TOP,
+                                    duration: Duration(seconds: 3),
+                                    leftBarIndicatorColor: walmartBlueInkColor,
+                                    onTap: (value) {
+                                      // navigatorKey.currentState.push(MaterialPageRoute(
+                                      //   builder: (_) => PendingOrderTracking(),
+
+                                      // ));
+                                    },
+                                  )..show(context);
+                                } else if (email.text.isEmpty) {
+                                  Flushbar(
+                                    message: "Se requiere correo electrónico.",
+                                    flushbarPosition: FlushbarPosition.TOP,
+                                    duration: Duration(seconds: 3),
+                                    leftBarIndicatorColor: walmartBlueInkColor,
+                                    onTap: (value) {
+                                      // navigatorKey.currentState.push(MaterialPageRoute(
+                                      //   builder: (_) => PendingOrderTracking(),
+
+                                      // ));
+                                    },
+                                  )..show(context);
+                                } else if (mobileNo.text.isEmpty) {
+                                  Flushbar(
+                                    message: "Se requiere número celular.",
+                                    flushbarPosition: FlushbarPosition.TOP,
+                                    duration: Duration(seconds: 3),
+                                    leftBarIndicatorColor: walmartBlueInkColor,
+                                    onTap: (value) {
+                                      // navigatorKey.currentState.push(MaterialPageRoute(
+                                      //   builder: (_) => PendingOrderTracking(),
+
+                                      // ));
+                                    },
+                                  )..show(context);
+                                } else if (govId.text.isEmpty) {
+                                  Flushbar(
+                                    message:
+                                        "Se requiere número de identificación.",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
@@ -308,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: width * .45,
                                 height: height * .06,
                                 color: walmartBlueInkColor,
-                                title: "Score me!",
+                                title: "Enviar",
                                 textColor: walmartWhiteColor,
                               ),
                             ),
