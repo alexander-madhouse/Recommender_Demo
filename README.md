@@ -1,6 +1,6 @@
-# credoapp_example
+# Recommender Demo
 
-CredoApp SDK example project.
+Recommender Demo project.
 
 ## Getting Started
 
