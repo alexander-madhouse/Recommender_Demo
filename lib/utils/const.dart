@@ -180,11 +180,11 @@ Future<void> customDialog(context, message, email, mobileNo, offerCode) async {
     barrierDismissible: true, // user must tap button!
     builder: (context) {
       return CupertinoAlertDialog(
-        title: Text('Mobile Score Confirmation'),
+        title: Text('Confirmación'),
         content: Text('$message!'),
         actions: <Widget>[
           CupertinoDialogAction(
-            child: Text('Dismiss'),
+            child: Text('No acepto'),
             onPressed: () {
               Navigator.of(context).pop();
 
@@ -197,7 +197,7 @@ Future<void> customDialog(context, message, email, mobileNo, offerCode) async {
             },
           ),
           CupertinoDialogAction(
-            child: Text('OK'),
+            child: Text('Acepto'),
             onPressed: () {
               // Navigator.of(context, rootNavigator: true).pop();
               // Navigator.of(context).pop();
@@ -249,7 +249,7 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
       EasyLoading.dismiss();
       var data = json.decode(value);
       showAlertDialog(context,
-          "Congratulation, you have been pre-qualified! We've collected and analyzed your information and will pass it on to your information and will pass it on to your lender. ");
+          "¡Felicitaciones, ha sido precalificado! Hemos recolectado y analizado tu información,  Nos contactaremos contigo a la brevedad.");
       // AppRoutes.push(context, ShowData(data: data));
     } else {
       _deleteCacheDir();

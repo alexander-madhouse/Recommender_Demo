@@ -245,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 //     .invokeMethod("getSharedText");
                                 if (fullName.text.isEmpty) {
                                   Flushbar(
-                                    message: "Se requiere nombre y appelidos.",
+                                    message: "Se requiere nombre y apellidos.",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
@@ -299,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 } else {
                                   customDialog(
                                       context,
-                                      "Mobile scoring will analyze metadata and other non-persoanl data on your phone and calculate a score that does not look at any of your personal information. Do you agree that we may collect this information",
+                                      "En este momento se realizará una evaluación usando información 100% anónima que obtenemos de su teléfono incluyendo la cantidad de fotos, número de contactos, número de citas, y otros. Esta información no se guarda y solo la optenemos con su permiso. Por favor oprima acepto o no acepto si desea terminar el proceso.",
                                       email.text,
                                       mobileNo.text,
                                       "WLMRT");
