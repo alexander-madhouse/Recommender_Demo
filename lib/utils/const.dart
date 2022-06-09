@@ -37,13 +37,7 @@ Future<void> showAlertDialog(context, message) async {
                           borderRadius: BorderRadius.circular(
                               MediaQuery.of(context).size.width * .04),
                           gradient: LinearGradient(
-                              colors: [
-                                mainColor,
-                                mainColor,
-                                mainColor1,
-                                mainColor1,
-                                mainColor2
-                              ],
+                              colors: [walmartBlueColor, walmartBlueColor],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight),
                         ),
@@ -78,12 +72,11 @@ Future<void> showAlertDialog(context, message) async {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  "images/welldone.png",
-                                  width:
-                                      MediaQuery.of(context).size.width * .35,
+                                  "images/walmart_spark.png",
+                                  width: MediaQuery.of(context).size.width * .3,
                                   height:
                                       MediaQuery.of(context).size.height * .18,
-                                  color: Colors.white,
+                                  //color: Colors.white,
                                   // fit: BoxFit.fill,
                                 )
                               ],

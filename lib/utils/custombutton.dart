@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class CustomButton extends StatefulWidget {
-  var width, height, title;
+  var width, height, title, textColor;
   Color color;
-  CustomButton({required this.color, this.height, this.title, this.width});
+  CustomButton(
+      {required this.color,
+      this.height,
+      this.title,
+      this.width,
+      this.textColor});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -33,12 +38,12 @@ class custom extends State<CustomButton> {
             borderRadius:
                 BorderRadius.circular(MediaQuery.of(context).size.width * .03),
             color: widget.color,
-            border: Border.all(color: Colors.grey)),
+            border: Border.all(color: walmartBlueInkColor)),
         child: Center(
           child: Text(
             "${widget.title}",
             style: headingStyle.copyWith(
-                color: Colors.white, fontWeight: FontWeight.w300),
+                color: widget.textColor, fontWeight: FontWeight.w300),
           ),
         ),
       ),

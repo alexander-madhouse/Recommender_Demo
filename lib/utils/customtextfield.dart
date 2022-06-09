@@ -1,4 +1,5 @@
 import 'package:credoapp_example/utils/styles.dart';
+import 'package:credoapp_example/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,7 @@ class custom extends State<CustomTextField> {
         style: labelTextStyle.copyWith(
             // color: secondaryColor,
             fontSize: 16,
-            color: Colors.black,
+            color: walmartBlueInkColor,
             fontWeight: FontWeight.normal),
         obscureText: widget.pass == true
             ? show == false
@@ -97,7 +98,7 @@ class custom extends State<CustomTextField> {
 
             // labelText: "${widget.title}",
             hintStyle: labelTextStyle.copyWith(
-                color: Colors.black,
+                color: walmartBlueInkColor,
                 fontSize: 14,
                 fontWeight: FontWeight.normal)),
       ),
