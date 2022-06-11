@@ -48,7 +48,8 @@ func application(
                 let mobileNo  = myArgs["mobileNo"] as? Int;
                 let offerCode = myArgs["offerCode"];
                 
-                let authKey = "2bc12245-fe7f-4f94-a715-ca2ab6ef6f03";
+                //let authKey = "2bc12245-fe7f-4f94-a715-ca2ab6ef6f03";
+                let authKey = "3b7c18e2-6088-418e-a9f4-6a54fdfe8a43";
                 let apiURL = "https://app.securecreditsystems.com/";
                  
 //                let storyboard = UIStoryboard(name: "mainStoryboard", bundle: podBundle)

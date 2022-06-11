@@ -255,10 +255,10 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
       _deleteCacheDir();
       _deleteAppDir();
       Flushbar(
-        message: "Something Went wrong!",
+        message: "¡Algo salió mal!",
         flushbarPosition: FlushbarPosition.TOP,
         duration: Duration(seconds: 3),
-        leftBarIndicatorColor: Colors.blue[300],
+        leftBarIndicatorColor: walmartBlueColor,
         onTap: (value) {
           // navigatorKey.currentState.push(MaterialPageRoute(
           //   builder: (_) => PendingOrderTracking(),
@@ -275,7 +275,7 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
       message: "${onError}!",
       flushbarPosition: FlushbarPosition.TOP,
       duration: Duration(seconds: 3),
-      leftBarIndicatorColor: Colors.blue[300],
+      leftBarIndicatorColor: walmartBlueColor,
       onTap: (value) {
         // navigatorKey.currentState.push(MaterialPageRoute(
         //   builder: (_) => PendingOrderTracking(),
