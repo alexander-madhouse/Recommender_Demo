@@ -48,7 +48,7 @@ class MainActivity: FlutterActivity() {
                     val em=call.argument<String>("email").toString()
                     val mobile=call.argument<String>("mobileNo").toString()
                     val oferCode=call.argument<String>("offerCode").toString()
-                    val authKey ="2bc12245-fe7f-4f94-a715-ca2ab6ef6f03"
+                    val authKey ="3b7c18e2-6088-418e-a9f4-6a54fdfe8a43"
                     val apiURL ="https://app.securecreditsystems.com/"
                     println("the auth key is $authKey")
                     println("the api url key is $apiURL")

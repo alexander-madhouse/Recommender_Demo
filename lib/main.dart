@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
                 height: 100,
               ),
             ),
-            nextScreen: const MyHomePage(title: 'CredoApp SDK Example'),
+            nextScreen: const MyHomePage(title: 'SCS Quickstart Template (es)'),
             splashTransition: SplashTransition.decoratedBoxTransition,
             // pageTransitionType: PageTransitionType,
             backgroundColor: walmartBlueColor));
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               pass: false, controller: fullName,
                               width: width * .85,
                               validator: (String value) => value.isEmpty
-                                  ? "Please enter Full Name"
+                                  ? "Por favor ingresa nombre y apellidos"
                                   : null,
                               title: "Ingresa nombre y apellidos",
                               number: false,
@@ -160,8 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               controller: email,
                               pass: false,
                               width: width * .85,
-                              validator: (String value) =>
-                                  value.isEmpty ? "Please enter Email" : null,
+                              validator: (String value) => value.isEmpty
+                                  ? "Por favor ingresa correo electrónico"
+                                  : null,
                               title: "Ingresa correo electrónico",
                               number: false,
                               keyboardTypenumeric: false,
@@ -203,8 +204,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               controller: govId,
                               pass: false,
                               width: width * .85,
-                              validator: (String value) =>
-                                  value.isEmpty ? "Please enter Gov ID" : null,
+                              validator: (String value) => value.isEmpty
+                                  ? "Por favor ingresa número de identificación"
+                                  : null,
                               title: "Ingresa número de identificación",
                               number: false,
                               keyboardTypenumeric: false,
@@ -222,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               Flexible(
                                   child: Text(
-                                "This score will only be shared with this lender. Your information will not be share with..",
+                                "Esta información no será compartida con nadie externo.",
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: headingStyle.copyWith(
@@ -256,6 +258,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                       // ));
                                     },
                                   )..show(context);
+                                } else if (!isAphaNum(fullName.text)) {
+                                  Flushbar(
+                                    message: "Ingrese sólo letras en el nombre",
+                                    flushbarPosition: FlushbarPosition.TOP,
+                                    duration: Duration(seconds: 3),
+                                    leftBarIndicatorColor: walmartBlueInkColor,
+                                    onTap: (value) {
+                                      // navigatorKey.currentState.push(MaterialPageRoute(
+                                      //   builder: (_) => PendingOrderTracking(),
+
+                                      // ));
+                                    },
+                                  )..show(context);
                                 } else if (email.text.isEmpty) {
                                   Flushbar(
                                     message: "Se requiere correo electrónico.",
@@ -269,9 +284,35 @@ class _MyHomePageState extends State<MyHomePage> {
                                       // ));
                                     },
                                   )..show(context);
+                                } else if (!isEmail(email.text)) {
+                                  Flushbar(
+                                    message: "Ingrese un correo valido",
+                                    flushbarPosition: FlushbarPosition.TOP,
+                                    duration: Duration(seconds: 3),
+                                    leftBarIndicatorColor: walmartBlueInkColor,
+                                    onTap: (value) {
+                                      // navigatorKey.currentState.push(MaterialPageRoute(
+                                      //   builder: (_) => PendingOrderTracking(),
+
+                                      // ));
+                                    },
+                                  )..show(context);
                                 } else if (mobileNo.text.isEmpty) {
                                   Flushbar(
                                     message: "Se requiere número celular.",
+                                    flushbarPosition: FlushbarPosition.TOP,
+                                    duration: Duration(seconds: 3),
+                                    leftBarIndicatorColor: walmartBlueInkColor,
+                                    onTap: (value) {
+                                      // navigatorKey.currentState.push(MaterialPageRoute(
+                                      //   builder: (_) => PendingOrderTracking(),
+
+                                      // ));
+                                    },
+                                  )..show(context);
+                                } else if (!isNumeric(mobileNo.text)) {
+                                  Flushbar(
+                                    message: "Ingrese solo números.",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
@@ -346,6 +387,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
         ));
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
+
+  bool isAphaNum(String s) {
+    //return s.hasMatch(new RegExp('^[ a-zA-Z]+'));
+    final alphanumeric = RegExp(r'^[ a-zA-Z]+$');
+    return alphanumeric.hasMatch(s);
+  }
+
+  bool isEmail(String s) {
+    final email = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    return email.hasMatch(s);
   }
 
   Widget heading(title) {
