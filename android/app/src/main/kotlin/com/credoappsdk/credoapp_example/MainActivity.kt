@@ -35,9 +35,10 @@ class MainActivity: FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler{
             call, result ->
 
-            when {
+            //when {
 
-                call.method.equals("changeColor") -> {
+                //call.method.equals("changeColor") -> {
+                if (call.method=="changeColor"){
 
                     ActivityCompat.requestPermissions(this@MainActivity, arrPerms,200)
 
@@ -45,6 +46,7 @@ class MainActivity: FlutterActivity() {
                     println("the email is ${call.argument<String>("email").toString()}")
                     println("the offerCode is ${call.argument<String>("offerCode").toString()}")
                     println("the mobileNo is ${call.argument<String>("mobileNo").toString()}")
+                    println("the govID is ${call.argument<String>("govID").toString()}")
                     val em=call.argument<String>("email").toString()
                     val mobile=call.argument<String>("mobileNo").toString()
                     val oferCode=call.argument<String>("offerCode").toString()
@@ -104,9 +106,72 @@ class MainActivity: FlutterActivity() {
                         println("Exception is handled. ${e}")
                         result.error("${e.localizedMessage}","something went wrong",null)
                     }
+                }else if (call.method=="changeColorGovID"){
 
+                    ActivityCompat.requestPermissions(this@MainActivity, arrPerms,200)
+
+
+                    println("the userid is ${call.argument<String>("userid").toString()}")
+                    println("the govID is ${call.argument<String>("govID").toString()}")
+                    val userid=call.argument<String>("userid").toString()
+                    val govID=call.argument<String>("dovID").toString()
+                    val authKey ="3b7c18e2-6088-418e-a9f4-6a54fdfe8a43"
+                    val apiURL ="https://app.securecreditsystems.com/user/data"
+                    println("the auth key is $authKey")
+                    println("the api url key is $apiURL")
+                  val scs = SCSSDK(
+                          authKey,
+                  )
+
+                    println("our scs is: ${scs.UserId}, ${scs.instanceId}, ")
+                    if (Build.VERSION.SDK_INT > 9) {
+                        val policy = StrictMode.ThreadPolicy.Builder()
+                                .detectAll()
+                                .penaltyLog()
+                                .build()
+                        StrictMode.setThreadPolicy(policy)
+                    }
+                    var progress=   ProgressDialog(context)
+                    progress.show()
+                    try {
+
+
+                        val userdata  = scs.score(
+                                userid=userid,
+                                data = govID,
+                                minCollect=true,
+                                context=context,
+                        ).toString()
+                        println("the userdata is $userdata")
+
+                        if(userdata.toString().contains("scoreid")){
+                            progress.hide()
+                            result.success("$userdata")
+                        }
+                        else{progress.hide()
+                            result.error("400","something went wrong",null)
+                        }
+
+                    }
+
+                    catch (indexOutOfBoundsException:IndexOutOfBoundsException){
+                        progress.hide()
+                        //your error handling code here
+                        println("Exception is handled. ${indexOutOfBoundsException}")
+                        result.error("${indexOutOfBoundsException.localizedMessage}","something went wrong",null)
+                    } catch (nullpointer : NullPointerException){
+                        progress.hide()
+                        //your error handling code here
+                        println("Exception is handled. ${nullpointer}")
+                        result.error("${nullpointer.localizedMessage}","something went wrong",null)
+                    }
+                    catch (e : Exception){
+                        progress.hide()
+                        println("Exception is handled. ${e}")
+                        result.error("${e.localizedMessage}","something went wrong",null)
+                    }
                 }
-            }
+            //}
         }
     }
 

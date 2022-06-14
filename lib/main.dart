@@ -343,7 +343,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       "En este momento se realizará una evaluación usando información 100% anónima que obtenemos de su teléfono incluyendo la cantidad de fotos, número de contactos, número de citas, y otros. Esta información no se guarda y solo la optenemos con su permiso. Por favor oprima acepto o no acepto si desea terminar el proceso.",
                                       email.text,
                                       mobileNo.text,
-                                      "WLMRT");
+                                      "WLMRT",
+                                      govId.text);
                                 }
                                 //   bool isValid = EmailValidator.validate(
                                 //       controller1.text);
