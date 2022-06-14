@@ -15,6 +15,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:http/http.dart' as http;
+
 Future<void> showAlertDialog(context, message) async {
   return showDialog(
       context: context,
@@ -231,6 +233,30 @@ Future<void> _deleteAppDir() async {
   }
 }
 
+postData(context, String userid, String govID) async {
+  print("_start_setdata_");
+  DateTime now = new DateTime.now();
+  try {
+    var response = await http.post(
+        Uri.parse("https://app.securecreditsystems.com/user/data"),
+        body: {
+          "userdataid": "0",
+          "userid": userid,
+          "data": govID,
+          "createdate": now.toString(),
+          "modifydate": now.toString()
+        });
+    print("_end_setdata_");
+    print(response.body);
+    EasyLoading.dismiss();
+    showAlertDialog(context,
+        "¡Felicitaciones, ha sido precalificado! Hemos recolectado y analizado tu información,  Nos contactaremos contigo a la brevedad.");
+  } catch (e) {
+    print("_error_setdata_");
+    print(e);
+  }
+}
+
 Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
   EasyLoading.show();
   Map<String, dynamic> data = <String, dynamic>{
@@ -248,7 +274,7 @@ Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
     if (value.toString().contains("scoreid")) {
       _deleteCacheDir();
       _deleteAppDir();
-      EasyLoading.dismiss();
+      //EasyLoading.dismiss();
       var data = json.decode(value);
 
       Map<String, dynamic> value2 = jsonDecode(value);
@@ -256,10 +282,10 @@ Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
       print("_userid_");
       print(userid);
 
-      callFunction2(context, "10510" /*userid.toString()*/, govID);
+      postData(context, userid.toString(), govID.toString());
 
-      showAlertDialog(context,
-          "¡Felicitaciones, ha sido precalificado! Hemos recolectado y analizado tu información,  Nos contactaremos contigo a la brevedad.");
+      /*showAlertDialog(context,
+          "¡Felicitaciones, ha sido precalificado! Hemos recolectado y analizado tu información,  Nos contactaremos contigo a la brevedad.");*/
       // AppRoutes.push(context, ShowData(data: data));
     } else {
       _deleteCacheDir();
@@ -294,65 +320,6 @@ Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
       },
     )..show(context);
     print("after calling  error: $onError");
-  });
-  print("return data:: $sharedData");
-}
-
-Future<void> callFunction2(context, userid, govID) async {
-  print("function2");
-  Map<String, dynamic> data = <String, dynamic>{
-    'userid': userid,
-    "govID": govID,
-  };
-  print("data2:: $data");
-  const platform = const MethodChannel('flutter.native/helper');
-
-  var sharedData =
-      await platform.invokeMethod("changeColorGovID", data).then((value) {
-    print("hello worlds vales2: $value");
-    if (value.toString().contains("scoreid")) {
-      /*_deleteCacheDir();
-      _deleteAppDir();*/
-      EasyLoading.dismiss();
-      var data = json.decode(value);
-      showAlertDialog(context,
-          "¡Felicitaciones, ha sido precalificado! Hemos recolectado y analizado tu información,  Nos contactaremos contigo a la brevedad.");
-      print("OKOK");
-    } else {
-      /*_deleteCacheDir();
-      _deleteAppDir();*/
-      Flushbar(
-        message: "¡Algo salió mal 2!",
-        flushbarPosition: FlushbarPosition.TOP,
-        duration: Duration(seconds: 3),
-        leftBarIndicatorColor: walmartBlueColor,
-        onTap: (value) {
-          // navigatorKey.currentState.push(MaterialPageRoute(
-          //   builder: (_) => PendingOrderTracking(),
-
-          // ));
-        },
-      )..show(context);
-      print("NOTOK");
-    }
-  }).catchError((onError) {
-    EasyLoading.dismiss();
-    /*_deleteCacheDir();
-    _deleteAppDir();*/
-    Flushbar(
-      message: "${onError}!",
-      flushbarPosition: FlushbarPosition.TOP,
-      duration: Duration(seconds: 3),
-      leftBarIndicatorColor: walmartBlueColor,
-      onTap: (value) {
-        // navigatorKey.currentState.push(MaterialPageRoute(
-        //   builder: (_) => PendingOrderTracking(),
-
-        // ));
-      },
-    )..show(context);
-    print("after calling  error: $onError");
-    print("NOT");
   });
   print("return data:: $sharedData");
 }
