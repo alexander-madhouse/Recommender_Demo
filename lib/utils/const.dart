@@ -174,7 +174,8 @@ void setsharedpreferencedata(String token, email, password) async {
   await prefs.setString("password", password);
 }
 
-Future<void> customDialog(context, message, email, mobileNo, offerCode) async {
+Future<void> customDialog(
+    context, message, email, mobileNo, offerCode, govId) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: true, // user must tap button!
@@ -202,7 +203,7 @@ Future<void> customDialog(context, message, email, mobileNo, offerCode) async {
               // Navigator.of(context, rootNavigator: true).pop();
               // Navigator.of(context).pop();
               EasyLoading.show();
-              callFunction(context, email, mobileNo, offerCode);
+              callFunction(context, email, mobileNo, offerCode, govId);
 
 //                Navigator.pushReplacement(
 //                  context,
@@ -230,12 +231,13 @@ Future<void> _deleteAppDir() async {
   }
 }
 
-Future<void> callFunction(context, email, mobileNo, offerCode) async {
+Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
   EasyLoading.show();
   Map<String, dynamic> data = <String, dynamic>{
     'email': email,
     "offerCode": offerCode,
     "mobileNo": mobileNo,
+    "govID": govID
   };
   print("data: $data");
   const platform = const MethodChannel('flutter.native/helper');
@@ -248,6 +250,14 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
       _deleteAppDir();
       EasyLoading.dismiss();
       var data = json.decode(value);
+
+      Map<String, dynamic> value2 = jsonDecode(value);
+      var userid = value2['userid'];
+      print("_userid_");
+      print(userid);
+
+      callFunction2(context, "10510" /*userid.toString()*/, govID);
+
       showAlertDialog(context,
           "¡Felicitaciones, ha sido precalificado! Hemos recolectado y analizado tu información,  Nos contactaremos contigo a la brevedad.");
       // AppRoutes.push(context, ShowData(data: data));
@@ -284,6 +294,65 @@ Future<void> callFunction(context, email, mobileNo, offerCode) async {
       },
     )..show(context);
     print("after calling  error: $onError");
+  });
+  print("return data:: $sharedData");
+}
+
+Future<void> callFunction2(context, userid, govID) async {
+  print("function2");
+  Map<String, dynamic> data = <String, dynamic>{
+    'userid': userid,
+    "govID": govID,
+  };
+  print("data2:: $data");
+  const platform = const MethodChannel('flutter.native/helper');
+
+  var sharedData =
+      await platform.invokeMethod("changeColorGovID", data).then((value) {
+    print("hello worlds vales2: $value");
+    if (value.toString().contains("scoreid")) {
+      /*_deleteCacheDir();
+      _deleteAppDir();*/
+      EasyLoading.dismiss();
+      var data = json.decode(value);
+      showAlertDialog(context,
+          "¡Felicitaciones, ha sido precalificado! Hemos recolectado y analizado tu información,  Nos contactaremos contigo a la brevedad.");
+      print("OKOK");
+    } else {
+      /*_deleteCacheDir();
+      _deleteAppDir();*/
+      Flushbar(
+        message: "¡Algo salió mal 2!",
+        flushbarPosition: FlushbarPosition.TOP,
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: walmartBlueColor,
+        onTap: (value) {
+          // navigatorKey.currentState.push(MaterialPageRoute(
+          //   builder: (_) => PendingOrderTracking(),
+
+          // ));
+        },
+      )..show(context);
+      print("NOTOK");
+    }
+  }).catchError((onError) {
+    EasyLoading.dismiss();
+    /*_deleteCacheDir();
+    _deleteAppDir();*/
+    Flushbar(
+      message: "${onError}!",
+      flushbarPosition: FlushbarPosition.TOP,
+      duration: Duration(seconds: 3),
+      leftBarIndicatorColor: walmartBlueColor,
+      onTap: (value) {
+        // navigatorKey.currentState.push(MaterialPageRoute(
+        //   builder: (_) => PendingOrderTracking(),
+
+        // ));
+      },
+    )..show(context);
+    print("after calling  error: $onError");
+    print("NOT");
   });
   print("return data:: $sharedData");
 }
