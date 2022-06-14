@@ -106,7 +106,7 @@ class MainActivity: FlutterActivity() {
                         println("Exception is handled. ${e}")
                         result.error("${e.localizedMessage}","something went wrong",null)
                     }
-                }else if (call.method=="changeColorGovID"){
+                }/*else if (call.method=="changeColorGovID"){
 
                     ActivityCompat.requestPermissions(this@MainActivity, arrPerms,200)
 
@@ -170,7 +170,7 @@ class MainActivity: FlutterActivity() {
                         println("Exception is handled. ${e}")
                         result.error("${e.localizedMessage}","something went wrong",null)
                     }
-                }
+                }*/
             //}
         }
     }
