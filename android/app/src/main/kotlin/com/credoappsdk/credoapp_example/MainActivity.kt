@@ -85,7 +85,7 @@ class MainActivity: FlutterActivity() {
                             result.success("$score")
                         }
                         else{progress.hide()
-                            result.error("400","something went wrong",null)
+                            result.error("400","something went wrong 1",null)
                         }
 
                     }
@@ -94,17 +94,17 @@ class MainActivity: FlutterActivity() {
                         progress.hide()
                         //your error handling code here
                         println("Exception is handled. ${indexOutOfBoundsException}")
-                        result.error("${indexOutOfBoundsException.localizedMessage}","something went wrong",null)
+                        result.error("${indexOutOfBoundsException.localizedMessage}","something went wrong 2",null)
                     } catch (nullpointer : NullPointerException){
                         progress.hide()
                         //your error handling code here
                         println("Exception is handled. ${nullpointer}")
-                        result.error("${nullpointer.localizedMessage}","something went wrong",null)
+                        result.error("${nullpointer.localizedMessage}","something went wrong 3",null)
                     }
                     catch (e : Exception){
                         progress.hide()
                         println("Exception is handled. ${e}")
-                        result.error("${e.localizedMessage}","something went wrong",null)
+                        result.error("${e.localizedMessage}","something went wrong 4",null)
                     }
                 }
             //}

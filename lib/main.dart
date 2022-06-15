@@ -1,16 +1,12 @@
-import 'dart:convert';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:another_flushbar/flushbar.dart';
-import 'package:credoapp_example/showdata.dart';
 import 'package:credoapp_example/utils/colors.dart';
 import 'package:credoapp_example/utils/const.dart';
 import 'package:credoapp_example/utils/custombutton.dart';
 import 'package:credoapp_example/utils/customtextfield.dart';
-import 'package:credoapp_example/utils/route.dart';
 import 'package:credoapp_example/utils/styles.dart';
 // import 'package:credoappsdk/credoappsdk.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -38,7 +34,7 @@ void main() async {
   ]);
 }
 
-const platform = const MethodChannel('app.channel.shared.data');
+const platform = MethodChannel('app.channel.shared.data');
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -56,7 +52,7 @@ class MyApp extends StatelessWidget {
         home: AnimatedSplashScreen(
             duration: 100,
             splashIconSize: 1000,
-            splash: Container(
+            splash: SizedBox(
               width: 500,
               height: 1000,
               child: Image.asset(
@@ -88,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController govId = TextEditingController();
   TextEditingController mobileNo = TextEditingController();
   var width, height;
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -107,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.white,
           padding: EdgeInsets.all(width * .02),
           child: isLoading == true
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
                   child: Form(
                     key: formKey,
@@ -249,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Flushbar(
                                     message: "Se requiere nombre y apellidos.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -257,13 +253,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else if (!isAlpha(fullName.text)) {
                                   Flushbar(
                                     message:
                                         "Ingrese sólo letras en el nombre.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -271,12 +267,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else if (email.text.isEmpty) {
                                   Flushbar(
                                     message: "Se requiere correo electrónico.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -284,12 +280,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else if (!isEmail(email.text)) {
                                   Flushbar(
                                     message: "Ingrese un correo valido.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -297,12 +293,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else if (mobileNo.text.isEmpty) {
                                   Flushbar(
                                     message: "Se requiere número celular.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -310,13 +306,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else if (!isNumeric(mobileNo.text)) {
                                   Flushbar(
                                     message:
                                         "Ingrese solo números en número celular.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -324,13 +320,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else if (govId.text.isEmpty) {
                                   Flushbar(
                                     message:
                                         "Se requiere número de identificación.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -338,13 +334,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else if (!isAlphaNum(govId.text)) {
                                   Flushbar(
                                     message:
                                         "Ingrese sólo alfanúmericos en el número de identificación.",
                                     flushbarPosition: FlushbarPosition.TOP,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
                                     onTap: (value) {
                                       // navigatorKey.currentState.push(MaterialPageRoute(
@@ -352,7 +348,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                       // ));
                                     },
-                                  )..show(context);
+                                  ).show(context);
                                 } else {
                                   customDialog(
                                       context,
