@@ -258,9 +258,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                       // ));
                                     },
                                   )..show(context);
-                                } else if (!isAphaNum(fullName.text)) {
+                                } else if (!isAlpha(fullName.text)) {
                                   Flushbar(
-                                    message: "Ingrese sólo letras en el nombre",
+                                    message:
+                                        "Ingrese sólo letras en el nombre.",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
@@ -286,7 +287,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   )..show(context);
                                 } else if (!isEmail(email.text)) {
                                   Flushbar(
-                                    message: "Ingrese un correo valido",
+                                    message: "Ingrese un correo valido.",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
@@ -312,7 +313,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   )..show(context);
                                 } else if (!isNumeric(mobileNo.text)) {
                                   Flushbar(
-                                    message: "Ingrese solo números.",
+                                    message:
+                                        "Ingrese solo números en número celular.",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
@@ -327,6 +329,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Flushbar(
                                     message:
                                         "Se requiere número de identificación.",
+                                    flushbarPosition: FlushbarPosition.TOP,
+                                    duration: Duration(seconds: 3),
+                                    leftBarIndicatorColor: walmartBlueInkColor,
+                                    onTap: (value) {
+                                      // navigatorKey.currentState.push(MaterialPageRoute(
+                                      //   builder: (_) => PendingOrderTracking(),
+
+                                      // ));
+                                    },
+                                  )..show(context);
+                                } else if (!isAlphaNum(govId.text)) {
+                                  Flushbar(
+                                    message:
+                                        "Ingrese sólo alfanúmericos en el número de identificación.",
                                     flushbarPosition: FlushbarPosition.TOP,
                                     duration: Duration(seconds: 3),
                                     leftBarIndicatorColor: walmartBlueInkColor,
@@ -397,9 +413,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return double.tryParse(s) != null;
   }
 
-  bool isAphaNum(String s) {
+  bool isAlpha(String s) {
     //return s.hasMatch(new RegExp('^[ a-zA-Z]+'));
-    final alphanumeric = RegExp(r'^[ a-zA-Z]+$');
+    final alphanumeric =
+        RegExp(r"^[ a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜâêîôûÂÊÎÔÛàèìòùÀÈÌÒÙÑñ']+$");
+    return alphanumeric.hasMatch(s);
+  }
+
+  bool isAlphaNum(String s) {
+    //return s.hasMatch(new RegExp('^[ a-zA-Z]+'));
+    final alphanumeric =
+        RegExp(r"^[ a-zA-Z0-9áéíóúÁÉÍÓÚäëïöüÄËÏÖÜâêîôûÂÊÎÔÛàèìòùÀÈÌÒÙÑñ']+$");
     return alphanumeric.hasMatch(s);
   }
 
