@@ -1,6 +1,5 @@
 import 'package:credoapp_example/utils/route.dart';
 import 'package:credoapp_example/utils/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShowData extends StatefulWidget {
@@ -23,19 +22,19 @@ class _ShowData extends State<ShowData> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[300],
-        title: Text("Data Collected"),
+        title: const Text("Data Collected"),
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
             AppRoutes.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios, color: Colors.white),
+          child: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         // height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -68,7 +67,7 @@ class _ShowData extends State<ShowData> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(width * .03),
           color: Colors.white,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(color: Colors.grey, blurRadius: 0.8, spreadRadius: 0.3)
           ]),
       child: Column(

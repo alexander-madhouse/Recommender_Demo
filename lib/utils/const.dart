@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:credoapp_example/main.dart';
@@ -24,8 +23,8 @@ Future<void> showAlertDialog(context, message) async {
             backgroundColor: Colors.transparent,
             // shape: RoundedRectangleBorder(
             //     borderRadius: BorderRadius.all(Radius.circular(15.0))),
-            contentPadding: EdgeInsets.only(top: 10.0),
-            content: Container(
+            contentPadding: const EdgeInsets.only(top: 10.0),
+            content: SizedBox(
                 width: MediaQuery.of(context).size.width * .7,
                 height: MediaQuery.of(context).size.height * .5,
                 child: Stack(
@@ -38,7 +37,7 @@ Future<void> showAlertDialog(context, message) async {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                               MediaQuery.of(context).size.width * .04),
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                               colors: [walmartBlueColor, walmartBlueColor],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight),
@@ -93,7 +92,7 @@ Future<void> showAlertDialog(context, message) async {
                                   onTap: () {
                                     AppRoutes.makeFirst(
                                         context,
-                                        MyHomePage(
+                                        const MyHomePage(
                                           title: "",
                                         ));
                                     // AppRoutes.push(context, LoginScreen(
@@ -183,11 +182,11 @@ Future<void> customDialog(
     barrierDismissible: true, // user must tap button!
     builder: (context) {
       return CupertinoAlertDialog(
-        title: Text('Confirmación'),
+        title: const Text('Confirmación'),
         content: Text('$message!'),
         actions: <Widget>[
           CupertinoDialogAction(
-            child: Text('No acepto'),
+            child: const Text('No acepto'),
             onPressed: () {
               Navigator.of(context).pop();
 
@@ -200,7 +199,7 @@ Future<void> customDialog(
             },
           ),
           CupertinoDialogAction(
-            child: Text('Acepto'),
+            child: const Text('Acepto'),
             onPressed: () {
               // Navigator.of(context, rootNavigator: true).pop();
               // Navigator.of(context).pop();
@@ -235,7 +234,7 @@ Future<void> _deleteAppDir() async {
 
 postData(context, String userid, String govID) async {
   print("_start_setdata_");
-  DateTime now = new DateTime.now();
+  DateTime now = DateTime.now();
   try {
     var response = await http.post(
         Uri.parse("https://app.securecreditsystems.com/user/data"),
@@ -266,7 +265,7 @@ Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
     "govID": govID
   };
   print("data: $data");
-  const platform = const MethodChannel('flutter.native/helper');
+  const platform = MethodChannel('flutter.native/helper');
 
   var sharedData =
       await platform.invokeMethod("changeColor", data).then((value) {
@@ -293,7 +292,7 @@ Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
       Flushbar(
         message: "¡Algo salió mal!",
         flushbarPosition: FlushbarPosition.TOP,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         leftBarIndicatorColor: walmartBlueColor,
         onTap: (value) {
           // navigatorKey.currentState.push(MaterialPageRoute(
@@ -301,16 +300,16 @@ Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
 
           // ));
         },
-      )..show(context);
+      ).show(context);
     }
   }).catchError((onError) {
     EasyLoading.dismiss();
     _deleteCacheDir();
     _deleteAppDir();
     Flushbar(
-      message: "${onError}!",
+      message: "$onError!",
       flushbarPosition: FlushbarPosition.TOP,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       leftBarIndicatorColor: walmartBlueColor,
       onTap: (value) {
         // navigatorKey.currentState.push(MaterialPageRoute(
@@ -318,7 +317,7 @@ Future<void> callFunction(context, email, mobileNo, offerCode, govID) async {
 
         // ));
       },
-    )..show(context);
+    ).show(context);
     print("after calling  error: $onError");
   });
   print("return data:: $sharedData");

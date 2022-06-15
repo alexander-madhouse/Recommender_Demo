@@ -1,6 +1,5 @@
 import 'package:credoapp_example/utils/styles.dart';
 import 'package:credoapp_example/utils/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
